@@ -59,9 +59,12 @@ class LoginScreen extends Component {
           <Text style={{ color: "#FFF", fontWeight: "500" }}>Sign In</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ alignSelf: "center", marginTop: 32 }}>
+        <TouchableOpacity
+          style={{ alignSelf: "center", marginTop: 32 }}
+          onPress={() => this.props.navigation.navigate("Register")}
+        >
           <Text style={{ color: "#414959", fontSize: 13 }}>
-            New to Designate{" "}
+            New to Designate?{" "}
             <Text style={{ color: "#E9446A", fontWeight: "500" }}> Sign Up</Text>
           </Text>
         </TouchableOpacity>
