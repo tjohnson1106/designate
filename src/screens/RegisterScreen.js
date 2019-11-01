@@ -127,7 +127,10 @@ class RegisterScreen extends Component {
           <Text style={{ color: "#FFF", fontWeight: "500" }}>Sign Up</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ alignSelf: "center", marginTop: 32 }}>
+        <TouchableOpacity
+          style={{ alignSelf: "center", marginTop: 32 }}
+          onPress={() => this.props.navigation.navigate("Login")}
+        >
           <Text style={{ color: "#414959", fontSize: 13 }}>
             New to Designate{" "}
             <Text style={{ color: "#E9446A", fontWeight: "500" }}>Login</Text>
@@ -146,7 +149,8 @@ const styles = StyleSheet.create({
     marginTop: 32,
     fontSize: 18,
     fontWeight: "400",
-    textAlign: "center"
+    textAlign: "center",
+    color: "#FFF"
   },
   errorMessage: {
     height: 72,
