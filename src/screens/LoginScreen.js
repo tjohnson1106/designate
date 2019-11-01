@@ -1,8 +1,21 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  StatusBar,
+  LayoutAnimation
+} from "react-native";
 import * as firebase from "firebase";
 
 class LoginScreen extends Component {
+  static navigationOptions = {
+    header: null
+  };
+
   state = {
     email: "",
     password: "",
@@ -19,8 +32,29 @@ class LoginScreen extends Component {
   };
 
   render() {
+    LayoutAnimation.easeInEaseOut();
     return (
       <View style={styles.root}>
+        <StatusBar barStyle="light-content"></StatusBar>
+
+        <Image
+          source={require("../../assets/authHeader.png")}
+          style={{ marginTop: -176, marginLeft: -50 }}
+        />
+
+        <Image
+          source={require("../../assets/authFooter.png")}
+          style={{ position: "absolute", bottom: -325, right: -225 }}
+        />
+
+        <Image
+          source={require("../../assets/loginLogo.png")}
+          style={{
+            marginTop: -110,
+            alignSelf: "center"
+          }}
+        />
+
         <Text style={styles.greeting}>{`Hello. \nWelcome.`}</Text>
 
         <View style={styles.errorMessage}>
@@ -78,7 +112,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   greeting: {
-    marginTop: 32,
+    marginTop: -32,
     fontSize: 18,
     fontWeight: "400",
     textAlign: "center"
@@ -116,7 +150,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#E9446A",
     borderRadius: 4,
     height: 52,
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
 

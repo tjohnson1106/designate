@@ -1,8 +1,20 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  StatusBar
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import * as firebase from "firebase";
 
 class RegisterScreen extends Component {
+  static navigationOptions = {
+    header: null
+  };
   state = {
     name: "",
     email: "",
@@ -29,7 +41,46 @@ class RegisterScreen extends Component {
   render() {
     return (
       <View style={styles.root}>
-        <Text style={styles.greeting}>{`Hello. \nSign up to get started.`}</Text>
+        <StatusBar barStyle="light-content" />
+
+        <Image
+          source={require("../../assets/authHeader.png")}
+          style={{ marginTop: -116, marginLeft: -50 }}
+        />
+
+        <Image
+          source={require("../../assets/authFooter.png")}
+          style={{ position: "absolute", bottom: -325, right: -225 }}
+        />
+
+        <View
+          style={{
+            position: "absolute",
+            top: 64,
+            alignItems: "center",
+            width: "100%"
+          }}
+        >
+          <Text style={styles.greeting}>{`Hello. \nSign up to get started.`}</Text>
+          <TouchableOpacity style={styles.avatar}>
+            <Ionicons
+              name="ios-add"
+              size={40}
+              color="#FFF"
+              style={{
+                marginTop: 6,
+                marginLeft: 2
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => this.props.navigation.goBack()}
+        >
+          <Ionicons name="ios-arrow-round-back" size={32} color="#FFF" />
+        </TouchableOpacity>
 
         <View style={styles.errorMessage}>
           {this.state.errorMessage && (
@@ -132,6 +183,26 @@ const styles = StyleSheet.create({
     height: 52,
     alignItems: "center",
     justifyContent: "center"
+  },
+  back: {
+    position: "absolute",
+    top: 48,
+    left: 32,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: "rgba(21, 22, 48, 0.1)",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  avatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: "#E1E2E6",
+    marginTop: 48,
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 
