@@ -32,19 +32,136 @@ firebase.initializeApp(firebaseConfig);
 //   Home: HomeScreen
 // });
 
-const AppTabNavigator = createBottomTabNavigator({
-  Home: {
-    screen: {
-      HomeScreen,
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="ios-home" size={24} color={tintColor} />
-        )
+const AppContainer = createStackNavigator(
+  {
+    default: createBottomTabNavigator(
+      {
+        Home: {
+          screen: HomeScreen,
+          navigationOptions: {
+            tabBarIcon: ({ tintColor }) => (
+              <Ionicons name="ios-home" size={24} color={tintColor} />
+            )
+          }
+        },
+        Message: {
+          screen: MessageScreen,
+          navigationOptions: {
+            tabBarIcon: ({ tintColor }) => (
+              <Ionicons name="ios-chatboxes" size={24} color={tintColor} />
+            )
+          }
+        },
+        Post: {
+          screen: PostScreen,
+          navigationOptions: {
+            tabBarIcon: ({ tintColor }) => (
+              <Ionicons
+                name="ios-add-circle"
+                size={24}
+                color={tintColor}
+                style={{
+                  shadowColor: "#E9446A",
+                  shadowOffset: { width: 0, height: 0 },
+                  shadowRadius: 10,
+                  shadowOpacity: 0.3
+                }}
+              />
+            )
+          }
+        },
+        Notification: {
+          screen: NotificationScreen,
+          navigationOptions: {
+            tabBarIcon: ({ tintColor }) => (
+              <Ionicons name="ios-add-circle" size={24} color={tintColor} />
+            )
+          }
+        },
+        Profile: {
+          screen: ProfileScreen,
+          navigationOptions: {
+            tabBarIcon: ({ tintColor }) => (
+              <Ionicons name="ios-person" color={tintColor} />
+            )
+          }
+        }
+      },
+      {
+        defaultNavigationOptions: {
+          tabBarOnPress: ({ navigation, defaultHandler }) => {
+            if (navigation.state.key === "Post") {
+              navigation.navigate("postModal");
+            } else {
+              defaultHandler();
+            }
+          }
+        },
+        tabBarOptions: {
+          activeTintColor: "#161F3D",
+          inActiveTintColor: "#B8BBC4",
+          showLabel: false
+        }
       }
-      // continue with message screen
+    ),
+    postModal: {
+      screen: PostScreen
     }
+  },
+
+  {
+    mode: "modal",
+    headerMode: "none",
+    initialRouteName: "postModal"
   }
-});
+);
+
+// v const AppTabNavigator = ()
+
+// const AppTabNavigator = createBottomTabNavigator({
+//   Home: {
+//     screen: HomeScreen,
+//     navigationOptions: {
+//       tabBarIcon: ({ tintColor }) => (
+//         <Ionicons name="ios-home" size={24} color={tintColor} />
+//       )
+//     }
+//   },
+//   Message: {
+//     screen: MessageScreen,
+//     navigationOptions: {
+//       tabBarIcon: ({ tintColor }) => (
+//         <Ionicons name="ios-chatboxes" size={24} color={tintColor} />
+//       )
+//     }
+//   },
+//   Post: {
+//     screen: PostScreen,
+//     navigationOptions: {
+//       tabBarIcon: ({ tintColor }) => (
+//         <Ionicons
+//           name="ios-add-circle"
+//           size={24}
+//           color={tintColor}
+//           style={{
+//             shadowColor: "#E9446A",
+//             shadowOffset: { width: 0, height: 0 },
+//             shadowRadius: 10,
+//             shadowOpacity: 0.3
+//           }}
+//         />
+//       )
+//     }
+//   },
+//   Notification: {
+//     screen: NotificationScreen,
+//     navigationOptions: {
+//       tabBarIcon: ({ tintColor }) => (
+//         <Ionicons name="ios-add-circle" size={24} color={tintColor} />
+//       )
+//     }
+//   }
+// });
 
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
@@ -55,7 +172,7 @@ export default createAppContainer(
   createSwitchNavigator(
     {
       Loading: LoadingScreen,
-      App: AppTabNavigator,
+      App: AppContainer,
       Auth: AuthStack
     },
     {
