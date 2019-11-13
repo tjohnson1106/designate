@@ -25,7 +25,10 @@ class PostScreen extends Component {
         </View>
 
         <View style={styles.inputContainer}>
-          <Image source={require("../../assets/tempAvatar.jpg")} style={styles.avatar} />
+          <Image
+            source={require("../../assets/tempAvatar.jpg")}
+            style={styles.avatar}
+          />
           <TextInput
             autoFocus={true}
             multiline={true}
@@ -34,6 +37,10 @@ class PostScreen extends Component {
             placeholder="Care to share?"
           />
         </View>
+
+        <TouchableOpacity style={styles.photo}>
+          <Ionicons name="md-camera" size={32} color="#D8D9DB" />
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }
@@ -50,6 +57,20 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderBottomWidth: 1,
     borderBottomColor: "#D8D9DB"
+  },
+  inputContainer: {
+    margin: 32,
+    flexDirection: "row"
+  },
+  avatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    marginRight: 36
+  },
+  photo: {
+    alignItems: "flex-end",
+    marginHorizontal: 32
   }
 });
 
