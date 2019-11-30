@@ -2,17 +2,24 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import * as firebase from "firebase";
 
-class LoadingScreen extends Component {
+import Fire from "../../Fire";
+
+class LoadingScreen extends React.Component {
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      this.props.navigation.navigate(user ? "App" : "Auth");
-    });
+    if (Fire.shared.uid) {
+      this.props.navigation.navigate("App");
+    } else {
+      firebase.auth().onAuthStateChanged(user => {
+        this.props.navigation.navigate(user ? "App" : "Auth");
+      });
+    }
   }
+
   render() {
     return (
-      <View style={styles.root}>
-        <Text>Loading ...</Text>
-        <ActivityIndicator size="large" />
+      <View style={styles.container}>
+        <Text>Loading</Text>
+        <ActivityIndicator size="large"></ActivityIndicator>
       </View>
     );
   }

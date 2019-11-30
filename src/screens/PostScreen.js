@@ -9,9 +9,46 @@ import {
   SafeAreaView
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import Constants from "expo-constants";
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
+
+import Fire from "../../Fire";
 
 class PostScreen extends Component {
-  state = {};
+  state = {
+    text: "",
+    image: null
+  };
+
+  componentDidMount() {
+    this.getPhotoPermission();
+  }
+
+  getPhotoPermission = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+      if (status != "granted") {
+        alert("We need permission to access your camera roll");
+      }
+    }
+  };
+
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3]
+    });
+
+    if (!result.cancelled) {
+      this.setState({
+        image: result.uri
+      });
+    }
+  };
+
   render() {
     return (
       <SafeAreaView style={styles.root}>
@@ -38,9 +75,21 @@ class PostScreen extends Component {
           />
         </View>
 
-        <TouchableOpacity style={styles.photo}>
+        <TouchableOpacity style={styles.photo} onPress={this.pickImage}>
           <Ionicons name="md-camera" size={32} color="#D8D9DB" />
         </TouchableOpacity>
+        <View
+          style={{
+            marginHorizontal: 32,
+            marginTop: 32,
+            height: 150
+          }}
+        >
+          <Image
+            source={{ uri: this.state.image }}
+            style={{ width: "100%", height: "100%" }}
+          />
+        </View>
       </SafeAreaView>
     );
   }
