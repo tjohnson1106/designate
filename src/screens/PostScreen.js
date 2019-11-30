@@ -15,6 +15,9 @@ import * as ImagePicker from "expo-image-picker";
 
 import Fire from "../../Fire";
 
+const firebase = require("firebase");
+require("firebase/firestore");
+
 class PostScreen extends Component {
   state = {
     text: "",
@@ -35,6 +38,21 @@ class PostScreen extends Component {
     }
   };
 
+  handlePost = () => {
+    Fire.shared
+      .addPost({
+        text: this.state.text.trim(),
+        localUri: this.state.image
+      })
+      .then(ref => {
+        this.setState({ text: "", image: null });
+        this.props.navigation.goBack();
+      })
+      .catch(error => {
+        alert(error);
+      });
+  };
+
   pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -53,10 +71,10 @@ class PostScreen extends Component {
     return (
       <SafeAreaView style={styles.root}>
         <View style={styles.header}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
             <Ionicons name="md-arrow-back" size={24} color="#D8D9DB" />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.handlePost}>
             <Text style={{ fontWeight: "500" }}>Post</Text>
           </TouchableOpacity>
         </View>
@@ -72,6 +90,8 @@ class PostScreen extends Component {
             numberOfLines={4}
             style={{ flex: 1 }}
             placeholder="Care to share?"
+            onChangeText={text => this.setState({ text })}
+            value={this.state.text}
           />
         </View>
 
