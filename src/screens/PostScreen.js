@@ -44,11 +44,11 @@ class PostScreen extends Component {
         text: this.state.text.trim(),
         localUri: this.state.image
       })
-      .then(ref => {
+      .then((ref) => {
         this.setState({ text: "", image: null });
         this.props.navigation.goBack();
       })
-      .catch(error => {
+      .catch((error) => {
         alert(error);
       });
   };
@@ -90,7 +90,7 @@ class PostScreen extends Component {
             numberOfLines={4}
             style={{ flex: 1 }}
             placeholder="Care to share?"
-            onChangeText={text => this.setState({ text })}
+            onChangeText={(text) => this.setState({ text })}
             value={this.state.text}
           />
         </View>

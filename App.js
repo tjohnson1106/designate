@@ -75,7 +75,7 @@ const AppContainer = createStackNavigator(
           screen: NotificationScreen,
           navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
-              <Ionicons name="ios-add-circle" size={24} color={tintColor} />
+              <Ionicons name="ios-notifications" size={24} color={tintColor} />
             )
           }
         },
@@ -83,7 +83,7 @@ const AppContainer = createStackNavigator(
           screen: ProfileScreen,
           navigationOptions: {
             tabBarIcon: ({ tintColor }) => (
-              <Ionicons name="ios-person" color={tintColor} />
+              <Ionicons name="ios-person" color={tintColor} size={24} />
             )
           }
         }
@@ -112,8 +112,8 @@ const AppContainer = createStackNavigator(
 
   {
     mode: "modal",
-    headerMode: "none",
-    initialRouteName: "postModal"
+    headerMode: "none"
+    // initialRouteName: "postModal"
   }
 );
 
