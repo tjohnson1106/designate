@@ -117,57 +117,15 @@ const AppContainer = createStackNavigator(
   }
 );
 
-// v const AppTabNavigator = ()
-
-// const AppTabNavigator = createBottomTabNavigator({
-//   Home: {
-//     screen: HomeScreen,
-//     navigationOptions: {
-//       tabBarIcon: ({ tintColor }) => (
-//         <Ionicons name="ios-home" size={24} color={tintColor} />
-//       )
-//     }
-//   },
-//   Message: {
-//     screen: MessageScreen,
-//     navigationOptions: {
-//       tabBarIcon: ({ tintColor }) => (
-//         <Ionicons name="ios-chatboxes" size={24} color={tintColor} />
-//       )
-//     }
-//   },
-//   Post: {
-//     screen: PostScreen,
-//     navigationOptions: {
-//       tabBarIcon: ({ tintColor }) => (
-//         <Ionicons
-//           name="ios-add-circle"
-//           size={24}
-//           color={tintColor}
-//           style={{
-//             shadowColor: "#E9446A",
-//             shadowOffset: { width: 0, height: 0 },
-//             shadowRadius: 10,
-//             shadowOpacity: 0.3
-//           }}
-//         />
-//       )
-//     }
-//   },
-//   Notification: {
-//     screen: NotificationScreen,
-//     navigationOptions: {
-//       tabBarIcon: ({ tintColor }) => (
-//         <Ionicons name="ios-add-circle" size={24} color={tintColor} />
-//       )
-//     }
-//   }
-// });
-
-const AuthStack = createStackNavigator({
-  Login: LoginScreen,
-  Register: RegisterScreen
-});
+const AuthStack = createStackNavigator(
+  {
+    Login: LoginScreen,
+    Register: RegisterScreen
+  },
+  {
+    initialRouteName: "Register"
+  }
+);
 
 export default createAppContainer(
   createSwitchNavigator(

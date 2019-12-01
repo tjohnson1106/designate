@@ -16,11 +16,17 @@ class RegisterScreen extends Component {
     header: null
   };
   state = {
-    name: "",
-    email: "",
-    password: "",
+    user: {
+      name: "",
+      email: "",
+      password: "",
+      avatar: null
+    },
+
     errorMessage: null
   };
+
+  handlePickAvatar = async () => {};
 
   handleSignUp = () => {
     firebase
@@ -61,8 +67,19 @@ class RegisterScreen extends Component {
             width: "100%"
           }}
         >
-          <Text style={styles.greeting}>{`Hello. \nSign up to get started.`}</Text>
-          <TouchableOpacity style={styles.avatar}>
+          {/* TODO change to child text component */}
+          <Text
+            style={styles.greeting}
+          >{`Hello. \nSign up to get started.`}</Text>
+          <TouchableOpacity
+            style={styles.avatarPlaceholder}
+            onPress={this.handlePickAvatar}
+          >
+            <Image
+              source={{ uri: this.state.user.avatar }}
+              style={styles.avatar}
+            />
+
             <Ionicons
               name="ios-add"
               size={40}
@@ -199,14 +216,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  avatar: {
+  avatarPlaceholder: {
     width: 100,
     height: 100,
-    borderRadius: 50,
     backgroundColor: "#E1E2E6",
+    borderRadius: 50,
     marginTop: 48,
     justifyContent: "center",
     alignItems: "center"
+  },
+  avatar: {
+    position: "absolute",
+    width: 100,
+    height: 100,
+    borderRadius: 50
   }
 });
 
